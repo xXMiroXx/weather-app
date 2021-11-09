@@ -1,0 +1,28 @@
+{
+    "env": {
+        "es6": true,
+        "commonjs": true,
+        "browser": true
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+        "no-trailing-spaces": "error",
+        "prefer-destructuring": "error",
+        "prefer-spread": "error",
+        "prefer-template": "error",
+        "prefer-promise-reject-errors": "error",
+        "prefer-rest-params": "error",
+        "prefer-arrow-callback": "error",
+        "no-var": "error",
+        "semi": "error",
+        "indent": [
+            "error",
+            2
+        ],
+        "no-multi-spaces": "error",
+        "space-in-parens": "error",
+        "no-multiple-empty-lines": "error",
+        "prefer-const": "error",
+        "no-use-before-define": "error"
+    }
+}
