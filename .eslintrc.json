@@ -9,7 +9,6 @@
         "no-trailing-spaces": "error",
         "prefer-destructuring": "error",
         "prefer-spread": "error",
-        "prefer-template": "error",
         "prefer-promise-reject-errors": "error",
         "prefer-rest-params": "error",
         "prefer-arrow-callback": "error",
@@ -17,12 +16,18 @@
         "semi": "error",
         "indent": [
             "error",
-            2
+            4
         ],
         "no-multi-spaces": "error",
         "space-in-parens": "error",
         "no-multiple-empty-lines": "error",
-        "prefer-const": "error",
         "no-use-before-define": "error"
+    },
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "ecmaFeatures": {
+            "globalReturn": true,
+            "experimentalObjectRestSpread": true
+        }
     }
 }
