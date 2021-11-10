@@ -1,7 +1,12 @@
-/* Global Variables */
+/**
+ *  Global Constants and Configurable Variables
+ */
 const API_KEY = "6bd87df1befba6507163c45fe1370fb7";
 // Note:Zip code should work only on US since we will not provide a country
 const API_URL = `https://api.openweathermap.org/data/2.5/weather?appid=${API_KEY}`;
+// UNITS can be either (standard => Kelvins ) , (imperial => Fahrenheit) or (metric => Celsius)
+const UNIT = "imperial";
+const UNIT_MAP = new Map([["imperial", "F"], ["metric", "C"], ["standard", "K"]]);
 // Form elements
 const generateBtn = document.getElementById("generate");
 const zipInput = document.getElementById("zip");
@@ -13,7 +18,7 @@ const entryContent = document.getElementById("content");
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
+let newDate = d.getMonth() + 1 + '.' + d.getDate() + '.' + d.getFullYear();
 
 /**
  * @description Post to server endpoint
@@ -58,8 +63,9 @@ const getDataFromServer = async () => {
  */
 const weatherApiData = async (zip) => {
     try {
-        // Units parameter used to get degrees in celsius
-        const res = await fetch(`${API_URL}&zip=${zip}&units=metric`);
+        // Fetching data from open weather.
+        // Unit is configurable (Top of file)
+        const res = await fetch(`${API_URL}&zip=${zip}&units=${UNIT}`);
         const parsedData = await res.json();
         const { temp } = parsedData.main;
         return temp;
@@ -78,7 +84,8 @@ const renderEntry = async () => {
         const data = await getDataFromServer();
         // Asign data to HTML elemnts useing their ids
         entryDate.innerHTML = data.date;
-        entryTemp.innerHTML = data.temp + " C";
+        // Set unit depends on configurable variable UNIT on top of file.
+        entryTemp.innerHTML = `${data.temp}  ︒${UNIT_MAP.get(UNIT)}`;
         entryContent.innerHTML = data.content;
 
     } catch (e) {
@@ -95,9 +102,9 @@ const generateHandler = async (e) => {
         e.preventDefault();
         // Content of text area box
         const content = feelingsInput.value;
-        // Zip should work only for us since other countries needs edit to url
+        // Zip should work only for US since other countries needs edit to url
         const zip = zipInput.value;
-        // Note: Temp in metric
+
         const temp = await weatherApiData(zip);
         await postToServer("/weather-data", { temp, content, date: newDate });
         await renderEntry();

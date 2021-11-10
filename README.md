@@ -9,3 +9,5 @@
 Configure port const variable to ur preferable port and run the server using node
 ## Features
 * Using ZipCode in (US) to get Weather back appended with ur comment about and date 
+
+* Configure temp units as needed to be in app 
